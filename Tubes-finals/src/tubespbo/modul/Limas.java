@@ -62,9 +62,13 @@ public class Limas extends BangunRuang implements IValidasi{
     @Override
     public String printDetail(){
         return
-            "Sisi Alas Limas   = " + sisiAlas.getSisi() +
-            "\nSisi Tinggi Limas = " + getTinggi() +
-            "\nLuas Permukaan    = " + getLuasPermukaan() +
-            "\nVolume            = " + getVolume();
+            "--- Detail Limas ---" +
+            "\nSisi Alas Limas   : " + sisiAlas.getSisi() +
+            "\nSisi Tinggi Limas : " + getTinggi() +
+            "\n" +
+            "\nLuas Sisi Alas    : " + sisiAlas.getLuas() +
+            "\nLuas Sisi Tegak   : " + sisiTegak.getLuas() +
+            "\nLuas Permukaan    : " + getLuasPermukaan() +
+            "\nVolume            : " + getVolume();
     }
 }

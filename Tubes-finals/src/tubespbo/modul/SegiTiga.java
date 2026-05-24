@@ -46,10 +46,11 @@ public class SegiTiga extends BangunDatar {
 
     public String printDetail(){
         return
-            "Warna    = " + this.getWarna() +
-            "\nAlas     = " + this.getAlas() +
-            "\nTinggi   = " + this.getTinggi() +
-            "\nKeliling = " + this.getKeliling() +
-            "\nLuas     = " + this.getLuas();
+            "--- Detail Segitiga ---" +
+            "\nAlas     : " + this.getAlas() +
+            "\nTinggi   : " + this.getTinggi() +
+            "\n" +
+            "\nKeliling : " + this.getKeliling() +
+            "\nLuas     : " + this.getLuas();
     }
 }

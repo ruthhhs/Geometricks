@@ -44,11 +44,13 @@ public class Kubus extends BangunRuang {
     @Override
     public String printDetail(){
         return
-            "Warna         = " + this.getSisi().getWarna() +
-            "\nSisi          = " + this.getSisi().getSisi() +
-            "\nDiagonal Ruang = " + this.getDiagonalRuang() +
-            "\nLuas Permukaan = " + this.getLuasPermukaan() +
-            "\nVolume         = "+ this.getVolume();
+            "--- Detail Kubus ---" +
+            "\nSisi           : " + this.getSisi().getSisi() +
+            "\n" +
+            "\nLuas Sisi      : " + this.getSisi().getLuas() +  
+            "\nDiagonal Ruang : " + this.getDiagonalRuang() +
+            "\nLuas Permukaan : " + this.getLuasPermukaan() +
+            "\nVolume         : "+ this.getVolume();
     }
 
 }

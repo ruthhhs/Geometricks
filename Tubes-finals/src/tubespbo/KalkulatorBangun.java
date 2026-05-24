@@ -1,12 +1,13 @@
 package tubespbo;
 
+import static java.lang.Math.sqrt;
 import java.util.logging.Logger;
 import java.util.logging.Level;
 import java.util.ArrayList;
 
-public class ApkTest extends javax.swing.JFrame {
+public class KalkulatorBangun extends javax.swing.JFrame {
     
-    private static final Logger logger = Logger.getLogger(ApkTest.class.getName());
+    private static final Logger logger = Logger.getLogger(KalkulatorBangun.class.getName());
     
     // === VARIABLES ===
     private ArrayList<Double> inputs = new ArrayList<>();
@@ -15,16 +16,18 @@ public class ApkTest extends javax.swing.JFrame {
     private boolean initDone = false;
     
     // === BUILD ===
-    public ApkTest() {
+    public KalkulatorBangun() {
         initComponents();
         
         comboBangun.removeAllItems();
         
+        comboBangun.addItem("Pilih Bangun");
         comboBangun.addItem("Bujur Sangkar");
         comboBangun.addItem("Persegi Panjang");
         comboBangun.addItem("Segitiga");
         comboBangun.addItem("Kubus");
         comboBangun.addItem("Balok");
+        comboBangun.addItem("Limas");
         
         initDone = true;
     }
@@ -45,6 +48,10 @@ public class ApkTest extends javax.swing.JFrame {
             else if(inputs.size()==2)
                 txtOutput.setText("\nMasukkan tinggi");
         }
+        if(selectedBangun.equals("Limas")){
+            if(inputs.size()==1)
+                txtOutput.setText("\nMasukkan tinggi");
+        }
     }
     
     private void prosesBangun(){
@@ -54,23 +61,58 @@ public class ApkTest extends javax.swing.JFrame {
                 BujurSangkar bs = new BujurSangkar();
                 bs.setSisi(inputs.get(0));
                 txtBoxOutput.append("\n" + bs.printDetail());
-                txtOutput.setText("Bangun sukses ditambahkan!");
             }
             case "Persegi Panjang" -> {
                 PersegiPanjang pp = new PersegiPanjang();
                 pp.setPanjang(inputs.get(0));
                 pp.setLebar(inputs.get(1));
-                txtBoxOutput.append("\n" + pp.printDetail());
-                txtOutput.setText("Bangun sukses ditambahkan!");
+                txtBoxOutput.append(pp.printDetail());
             }
             case "Segitiga" -> {
                 SegiTiga s = new SegiTiga();
                 s.setAlas(inputs.get(0));
                 s.setTinggi(inputs.get(1));
-                txtBoxOutput.append("\n" + s.printDetail());
-                txtOutput.setText("Bangun sukses ditambahkan!");
+                txtBoxOutput.append(s.printDetail());
+            }
+            case "Kubus" -> {
+                BujurSangkar s = new BujurSangkar();
+                s.setSisi(inputs.get(0));
+                Kubus k = new Kubus(s);
+                txtBoxOutput.append(k.printDetail());
+            }
+            case "Balok" -> {
+                PersegiPanjang sa = new PersegiPanjang();
+                PersegiPanjang st = new PersegiPanjang();
+                PersegiPanjang sd = new PersegiPanjang();
+                
+                sa.setPanjang(inputs.get(0));
+                sa.setLebar(inputs.get(1));
+                st.setPanjang(inputs.get(1));
+                st.setLebar(inputs.get(2));
+                sd.setPanjang(inputs.get(0));
+                sd.setLebar(inputs.get(2));
+                
+                Balok b = new Balok(sa, st, sd);
+                txtBoxOutput.append(b.printDetail());
+            }
+            case "Limas" -> {
+                BujurSangkar a = new BujurSangkar();
+                SegiTiga s = new SegiTiga();
+                
+                double al = inputs.get(0);
+                double tl = inputs.get(1);
+                double ts = sqrt( (0.5 * al)*(0.5 * al) + tl*tl );
+                        
+                a.setSisi(al);
+                s.setAlas(inputs.get(0));
+                s.setTinggi(ts);
+                
+                Limas l = new Limas(a, s);
+                txtBoxOutput.append(l.printDetail());
             }
         }
+        
+        txtOutput.setText("Bangun sukses ditambahkan!");
     }
     
     // === GUI ===
@@ -88,6 +130,7 @@ public class ApkTest extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         txtBoxOutput = new javax.swing.JTextArea();
         txtOutput = new javax.swing.JLabel();
+        jButtonBackToMainMenu = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -107,34 +150,44 @@ public class ApkTest extends javax.swing.JFrame {
 
         txtOutput.setText("Pilih Bangun");
 
+        jButtonBackToMainMenu.setText("Back");
+        jButtonBackToMainMenu.addActionListener(this::jButtonBackToMainMenuActionPerformed);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(15, 15, 15)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(comboBangun, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonAdd, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtInput)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jButtonBackToMainMenu)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(comboBangun, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(txtOutput)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 269, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(txtInput)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButtonAdd)))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(comboBangun, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
+                .addGap(11, 11, 11)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonBackToMainMenu)
+                    .addComponent(comboBangun, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addComponent(txtOutput)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonAdd))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonAdd)
-                .addGap(24, 24, 24)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
+                .addGap(18, 18, 18))
         );
 
         pack();
@@ -178,15 +231,20 @@ public class ApkTest extends javax.swing.JFrame {
                 expectedInput = 2;
                 txtOutput.setText("Masukkan alas");
             }
-            case "Balok" -> {
-                expectedInput = 3;
-                txtOutput.setText("Masukkan panjang");
-            }
             case "Kubus" -> {
                 expectedInput = 1;
                 txtOutput.setText("Masukkan sisi");
             }
+            case "Balok" -> {
+                expectedInput = 3;
+                txtOutput.setText("Masukkan panjang");
+            }
+            case "Limas" -> {
+                expectedInput = 2;
+                txtOutput.setText("Masukkan sisi alas");
+            }
         }
+        txtBoxOutput.setText("");
     }//GEN-LAST:event_comboBangunActionPerformed
 
     private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddActionPerformed
@@ -208,6 +266,13 @@ public class ApkTest extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonAddActionPerformed
 
+    private void jButtonBackToMainMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBackToMainMenuActionPerformed
+        MainMenu menu = new MainMenu();
+        menu.setVisible(true);
+
+        this.dispose();
+    }//GEN-LAST:event_jButtonBackToMainMenuActionPerformed
+
     // === RUN ===
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -228,7 +293,7 @@ public class ApkTest extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new ApkTest().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new MainMenu().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -238,6 +303,7 @@ public class ApkTest extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup4;
     private javax.swing.JComboBox<String> comboBangun;
     private javax.swing.JButton jButtonAdd;
+    private javax.swing.JButton jButtonBackToMainMenu;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea txtBoxOutput;
     private javax.swing.JTextField txtInput;

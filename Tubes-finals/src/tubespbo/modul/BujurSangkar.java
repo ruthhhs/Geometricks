@@ -39,10 +39,11 @@ public class BujurSangkar extends BangunDatar {
 
     public String printDetail(){
         return
-            "Warna    = " + this.getWarna() +
-            "\nSisi     = " + this.getSisi() +
-            "\nDiagonal = " + this.getDiagonal() +
-            "\nKeliling = " + this.getKeliling() +
-            "\nLuas     = " + this.getLuas();
+            "--- Detail Bujur Sangkar ---" +
+            "\nSisi     : " + this.getSisi() +
+            "\n" +
+            "\nDiagonal : " + this.getDiagonal() +
+            "\nKeliling : " + this.getKeliling() +
+            "\nLuas     : " + this.getLuas();
     }
 }

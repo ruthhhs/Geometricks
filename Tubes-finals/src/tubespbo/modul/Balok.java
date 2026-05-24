@@ -80,11 +80,16 @@ public class Balok extends BangunRuang implements IValidasi{
     @Override
     public String printDetail(){
         return
-            "Sisi Panjang   = " + sisiAlas.getPanjang() +
-            "\nSisi Lebar     = " + sisiDepan.getLebar() +
-            "\nSisi Tegak     = " + sisiTegak.getLebar() +
-            "\nLuas Permukaan = " + this.getLuasPermukaan() +
-            "\nVolume         = "+ this.getVolume() +
-            "\nDiagonal Ruang = " + this.getDiagonalRuang();
+            "--- Detail Balok ---" +
+            "\nSisi Panjang     : " + sisiAlas.getPanjang() +
+            "\nSisi Lebar       : " + sisiDepan.getLebar() +
+            "\nSisi Tegak       : " + sisiTegak.getLebar() +
+            "\n" +
+            "\nLuas Sisi Alas   : " + sisiAlas.getLuas() +
+            "\nLuas Sisi Tegak  : " + sisiTegak.getLuas() +
+            "\nLuas Sisi Depan  : " + sisiDepan.getLuas() +
+            "\nLuas Permukaan   : " + this.getLuasPermukaan() +
+            "\nVolume           : "+ this.getVolume() +
+            "\nDiagonal Ruang   : " + this.getDiagonalRuang();
     }
 }

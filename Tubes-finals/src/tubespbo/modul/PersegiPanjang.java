@@ -49,11 +49,12 @@ public class PersegiPanjang extends BangunDatar {
 
     public String printDetail(){
         return
-            "Warna    = " + this.getWarna() +
-            "\nPanjang  = " + this.getPanjang() +
-            "\nLebar    = " + this.getLebar() +
-            "\nDiagonal =  " + this.getDiagonal() +
-            "\nKeliling = " + this.getKeliling() +
-            "\nLuas     = " + this.getLuas();
+            "--- Detail Persegi Panjang ---" +
+            "\nPanjang  : " + this.getPanjang() +
+            "\nLebar    : " + this.getLebar() +
+            "\n" +
+            "\nDiagonal :  " + this.getDiagonal() +
+            "\nKeliling : " + this.getKeliling() +
+            "\nLuas     : " + this.getLuas();
     }
 }

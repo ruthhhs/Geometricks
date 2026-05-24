@@ -60,7 +60,7 @@ public class KalkulatorBangun extends javax.swing.JFrame {
             case "Bujur Sangkar" -> {
                 BujurSangkar bs = new BujurSangkar();
                 bs.setSisi(inputs.get(0));
-                txtBoxOutput.append("\n" + bs.printDetail());
+                txtBoxOutput.append(bs.printDetail());
             }
             case "Persegi Panjang" -> {
                 PersegiPanjang pp = new PersegiPanjang();
@@ -150,7 +150,7 @@ public class KalkulatorBangun extends javax.swing.JFrame {
 
         txtOutput.setText("Pilih Bangun");
 
-        jButtonBackToMainMenu.setText("Back");
+        jButtonBackToMainMenu.setText("Home");
         jButtonBackToMainMenu.addActionListener(this::jButtonBackToMainMenuActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

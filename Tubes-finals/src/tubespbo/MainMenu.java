@@ -70,7 +70,10 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonKalkulatorBangunActionPerformed
 
     private void jButtonKuisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonKuisActionPerformed
-        // TODO add your handling code here:
+        Quiz q = new Quiz();
+        q.setVisible(true);
+        
+        this.dispose();
     }//GEN-LAST:event_jButtonKuisActionPerformed
 
     private void jButtonAkunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAkunActionPerformed

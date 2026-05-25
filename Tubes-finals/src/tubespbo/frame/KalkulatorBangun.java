@@ -1,5 +1,6 @@
-package tubespbo;
+package tubespbo.frame;
 
+import tubespbo.modul.*;
 import static java.lang.Math.sqrt;
 import java.util.logging.Logger;
 import java.util.logging.Level;
@@ -28,6 +29,8 @@ public class KalkulatorBangun extends javax.swing.JFrame {
         comboBangun.addItem("Kubus");
         comboBangun.addItem("Balok");
         comboBangun.addItem("Limas");
+        
+        jButtonAdd.setEnabled(false);
         
         initDone = true;
     }
@@ -113,6 +116,7 @@ public class KalkulatorBangun extends javax.swing.JFrame {
         }
         
         txtOutput.setText("Bangun sukses ditambahkan!");
+        jButtonAdd.setEnabled(false);
     }
     
     // === GUI ===
@@ -245,6 +249,7 @@ public class KalkulatorBangun extends javax.swing.JFrame {
             }
         }
         txtBoxOutput.setText("");
+        jButtonAdd.setEnabled(true);
     }//GEN-LAST:event_comboBangunActionPerformed
 
     private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddActionPerformed

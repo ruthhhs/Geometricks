@@ -1,4 +1,4 @@
-package tubespbo;
+package tubespbo.modul;
 
 public class Balok extends BangunRuang implements IValidasi{
     // ====== ATRIBUT ======

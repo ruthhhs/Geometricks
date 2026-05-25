@@ -1,4 +1,4 @@
-package tubespbo;
+package tubespbo.frame;
 
 import tubespbo.modul.*;
 import javax.swing.ButtonGroup;

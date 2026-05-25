@@ -1,4 +1,4 @@
-package tubespbo;
+package tubespbo.frame;
 
 public class MainMenu extends javax.swing.JFrame {
     
@@ -18,6 +18,7 @@ public class MainMenu extends javax.swing.JFrame {
         jButtonKalkulatorBangun = new javax.swing.JButton();
         jButtonKuis = new javax.swing.JButton();
         jButtonAkun = new javax.swing.JButton();
+        jLabelMainMenu = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -27,30 +28,46 @@ public class MainMenu extends javax.swing.JFrame {
         jButtonKalkulatorBangun.addActionListener(this::jButtonKalkulatorBangunActionPerformed);
 
         jButtonKuis.setText("Kuis");
+        jButtonKuis.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonKuis.addActionListener(this::jButtonKuisActionPerformed);
 
         jButtonAkun.setText("Akun");
         jButtonAkun.addActionListener(this::jButtonAkunActionPerformed);
+
+        jLabelMainMenu.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        jLabelMainMenu.setText("Main Menu");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButtonAkun)
-                    .addComponent(jButtonKuis)
-                    .addComponent(jButtonKalkulatorBangun)
-                    .addComponent(labelMainMenu))
-                .addContainerGap(24, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(102, 102, 102)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButtonKalkulatorBangun)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(27, 27, 27)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jButtonAkun)
+                                    .addComponent(jButtonKuis)))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(73, 73, 73)
+                        .addComponent(jLabelMainMenu))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(114, 114, 114)
+                        .addComponent(labelMainMenu)))
+                .addContainerGap(78, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(21, 21, 21)
+                .addGap(42, 42, 42)
+                .addComponent(jLabelMainMenu)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelMainMenu)
-                .addGap(34, 34, 34)
+                .addGap(44, 44, 44)
                 .addComponent(jButtonKalkulatorBangun)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButtonKuis)
@@ -77,7 +94,10 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonKuisActionPerformed
 
     private void jButtonAkunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAkunActionPerformed
-        // TODO add your handling code here:
+        LogIn l = new LogIn();
+        l.setVisible(true);
+        
+        this.dispose();
     }//GEN-LAST:event_jButtonAkunActionPerformed
 
     // RUN
@@ -107,6 +127,7 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JButton jButtonAkun;
     private javax.swing.JButton jButtonKalkulatorBangun;
     private javax.swing.JButton jButtonKuis;
+    private javax.swing.JLabel jLabelMainMenu;
     private javax.swing.JLabel labelMainMenu;
     // End of variables declaration//GEN-END:variables
 }

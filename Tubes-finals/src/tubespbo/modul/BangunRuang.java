@@ -1,4 +1,4 @@
-package tubespbo;
+package tubespbo.modul;
 
 public abstract class BangunRuang {
     // ====== ATRIBUT ======

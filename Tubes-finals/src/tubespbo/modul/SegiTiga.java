@@ -1,4 +1,4 @@
-package tubespbo;
+package tubespbo.modul;
 
 public class SegiTiga extends BangunDatar {
     // ====== ATRIBUT ======

@@ -1,4 +1,15 @@
-/TubesPBO/nbproject/private/
-/TubesPBO/build/
-/TubesPBO/dist/
-/Tubes-finals/dist/
+# NetBeans build output
+Tubes-finals/build/
+Tubes-finals/dist/
+
+# NetBeans private config
+Tubes-finals/nbproject/private/
+
+# Java compiled files
+*.class
+
+# Optional: VS Code
+.vscode/
+
+# Optional: logs
+*.log

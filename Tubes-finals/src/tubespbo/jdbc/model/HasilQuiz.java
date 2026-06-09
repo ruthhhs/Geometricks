@@ -1,45 +1,42 @@
 package tubespbo.jdbc.model;
 
-import java.math.BigDecimal;
-
 public class HasilQuiz {
-
-    private String idHasil;
-    private String idAccount;
-    private BigDecimal nilai;
+    private int idHasil;
+    private int idAccount;
+    private float nilai;
     private int waktu;
 
     public HasilQuiz() {
     }
 
-    public HasilQuiz(String idHasil, String idAccount, BigDecimal nilai, int waktu) {
+    public HasilQuiz(int idAccount, float nilai, int waktu) {
         this.idHasil = idHasil;
         this.idAccount = idAccount;
         this.nilai = nilai;
         this.waktu = waktu;
     }
 
-    public String getIdHasil() {
+    public int getIdHasil() {
         return idHasil;
     }
 
-    public void setIdHasil(String idHasil) {
+    public void setIdHasil(int idHasil) {
         this.idHasil = idHasil;
     }
 
-    public String getIdAccount() {
+    public int getIdAccount() {
         return idAccount;
     }
 
-    public void setIdAccount(String idAccount) {
+    public void setIdAccount(int idAccount) {
         this.idAccount = idAccount;
     }
 
-    public BigDecimal getNilai() {
+    public float getNilai() {
         return nilai;
     }
 
-    public void setNilai(BigDecimal nilai) {
+    public void setNilai(float nilai) {
         this.nilai = nilai;
     }
 

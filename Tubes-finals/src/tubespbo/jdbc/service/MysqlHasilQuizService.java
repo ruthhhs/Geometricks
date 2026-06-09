@@ -7,9 +7,7 @@ import java.util.List;
 import tubespbo.jdbc.model.HasilQuiz;
 
 public class MysqlHasilQuizService {
-
     Connection koneksi = null;
-
     public MysqlHasilQuizService() {
         koneksi = MysqlUtility.getConnection();
     }
@@ -22,9 +20,9 @@ public class MysqlHasilQuizService {
             String query = "INSERT INTO hasil_quiz (id_hasil, id_account, nilai, waktu) VALUES (?, ?, ?, ?)";
             PreparedStatement ps = koneksi.prepareStatement(query);
 
-            ps.setString(1, hq.getIdHasil());
-            ps.setString(2, hq.getIdAccount());
-            ps.setBigDecimal(3, hq.getNilai());
+            ps.setInt(1, hq.getIdHasil());
+            ps.setInt(2, hq.getIdAccount());
+            ps.setFloat(3, hq.getNilai());
             ps.setInt(4, hq.getWaktu());
 
             ps.executeUpdate();
@@ -43,10 +41,10 @@ public class MysqlHasilQuizService {
             String query = "UPDATE hasil_quiz SET id_account=?, nilai=?, waktu=? WHERE id_hasil=?";
             PreparedStatement ps = koneksi.prepareStatement(query);
 
-            ps.setString(1, hq.getIdAccount());
-            ps.setBigDecimal(2, hq.getNilai());
+            ps.setInt(1, hq.getIdAccount());
+            ps.setFloat(2, hq.getNilai());
             ps.setInt(3, hq.getWaktu());
-            ps.setString(4, hq.getIdHasil());
+            ps.setInt(4, hq.getIdHasil());
 
             ps.executeUpdate();
             System.out.println("Berhasil update hasil quiz");
@@ -90,9 +88,8 @@ public class MysqlHasilQuizService {
 
             if (rs.next()) {
                 hq = new HasilQuiz(
-                    rs.getString("id_hasil"),
-                    rs.getString("id_account"),
-                    rs.getBigDecimal("nilai"),
+                    rs.getInt("id_account"),
+                    rs.getFloat("nilai"),
                     rs.getInt("waktu")
                 );
             }
@@ -119,9 +116,8 @@ public class MysqlHasilQuizService {
 
             while (rs.next()) {
                 list.add(new HasilQuiz(
-                    rs.getString("id_hasil"),
-                    rs.getString("id_account"),
-                    rs.getBigDecimal("nilai"),
+                    rs.getInt("id_account"),
+                    rs.getFloat("nilai"),
                     rs.getInt("waktu")
                 ));
             }

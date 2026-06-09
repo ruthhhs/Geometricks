@@ -4,7 +4,7 @@ import java.util.ArrayList;
 public class Koleksi<T> {
     private ArrayList<T> data = new ArrayList<>();
 
-    public void tambah(T item){
+    public void add(T item){
         data.add(item);
     }
 

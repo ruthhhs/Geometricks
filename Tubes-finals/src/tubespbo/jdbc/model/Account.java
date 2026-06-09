@@ -2,24 +2,29 @@ package tubespbo.jdbc.model;
 
 public class Account {
 
-    private String idAccount;
+    private int idAccount;
     private String username;
     private String password;
 
     public Account() {
     }
 
-    public Account(String idAccount, String username, String password) {
+    public Account(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+    
+    public Account(int idAccount, String username, String password) {
         this.idAccount = idAccount;
         this.username = username;
         this.password = password;
     }
 
-    public String getIdAccount() {
+    public int getIdAccount() {
         return idAccount;
     }
 
-    public void setIdAccount(String idAccount) {
+    public void setIdAccount(int idAccount) {
         this.idAccount = idAccount;
     }
 

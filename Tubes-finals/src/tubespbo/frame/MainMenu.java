@@ -1,4 +1,5 @@
 package tubespbo.frame;
+import tubespbo.util.Session;
 
 public class MainMenu extends javax.swing.JFrame {
     
@@ -7,8 +8,11 @@ public class MainMenu extends javax.swing.JFrame {
     // BUILD
     public MainMenu() {
         initComponents();
+        if (Session.idAccount != -1) {
+            labelMainMenu.setText("Selamat datang, " + Session.username + "!");
+        }
     }
-
+    
     // GUI
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -87,9 +91,12 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonKalkulatorBangunActionPerformed
 
     private void jButtonKuisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonKuisActionPerformed
+        if (Session.idAccount == -1) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Silakan login terlebih dahulu!");
+            return;
+        }
         Quiz q = new Quiz();
         q.setVisible(true);
-        
         this.dispose();
     }//GEN-LAST:event_jButtonKuisActionPerformed
 

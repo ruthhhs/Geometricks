@@ -1,5 +1,6 @@
 package tubespbo.frame;
 
+import tubespbo.util.Session;
 import java.awt.HeadlessException;
 import javax.swing.JOptionPane;
 import tubespbo.jdbc.model.Account;
@@ -103,9 +104,8 @@ public class LogIn extends javax.swing.JFrame {
         }
         
         // Simpan ke database 
-        String id = String.valueOf(System.currentTimeMillis());
         try {
-            Account newAccount = new Account(id, username, password);
+            Account newAccount = new Account(username, password);
             userService.add(newAccount);
 
             JOptionPane.showMessageDialog(this, 

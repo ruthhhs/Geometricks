@@ -1,164 +1,67 @@
 package tubespbo.frame;
-
-import tubespbo.modul.*;
-import javax.swing.ButtonGroup;
+import tubespbo.modul.Koleksi;
+import tubespbo.util.Session;
+import tubespbo.jdbc.model.*;
+import tubespbo.jdbc.service.MysqlSoalQuizService;
+import tubespbo.jdbc.service.MysqlHasilQuizService;
 
 public class Quiz extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Quiz.class.getName());
 
-    // ATRIBUTS
-    int current = 0;
-    int score = 0;
     Koleksi<SoalQuiz> daftarSoal = new Koleksi<>();
-    ButtonGroup bg = new ButtonGroup();
+    int indexSoal = 0;
+    int skor = 0;
 
-    // BUILD
     public Quiz() {
         initComponents();
-        
-        bg.add(jRadioButton1);
-        bg.add(jRadioButton2);
-        bg.add(jRadioButton3);
-        bg.add(jRadioButton4);
-        
-        generateSoal();
-        tampilkanSoal();
+        groupJawaban.add(rbA);
+        groupJawaban.add(rbB);
+        groupJawaban.add(rbC);
+        groupJawaban.add(rbD);
+        MysqlSoalQuizService service = new MysqlSoalQuizService();
+        daftarSoal = service.getAllSoal();
+        tampilSoal();
     }
     
-    // LOGICS
-    void generateSoal() {
-        BujurSangkar bs = new BujurSangkar();
-        PersegiPanjang pp = new PersegiPanjang();
-        PersegiPanjang sa = new PersegiPanjang();
-        PersegiPanjang st = new PersegiPanjang();
-        PersegiPanjang sd = new PersegiPanjang();
-        SegiTiga s = new SegiTiga();
-        Kubus k = new Kubus(bs);
-        Balok b = new Balok(sa, st, sd);
-        Limas l = new Limas(bs, s);
-        
-        // === SOAL 1 ===
-        bs.setSisi(3.8);
-        daftarSoal.tambah(new SoalQuiz(
-                "Berapakah luas persegi dengan sisi 3.8 cm?",
-                new String[] {"11,4", "12,4", "13,4",
-                    String.format("%.1f", bs.getLuas())},
-                3)
-        );
-        
-        // === SOAL 2 ===
-        pp.setPanjang(33);
-        pp.setLebar(44);
-        daftarSoal.tambah(new SoalQuiz(
-                "<html> Berapa panjang diagonal persegi panjang dengan <br>"
-                        + "panjang 33 cm dan lebar 44 cm ? </html>",
-                new String [] {"54,0",
-                    String.format("%.1f", pp.getDiagonal()),
-                    "56,0", "57,0"},
-                1)
-        );
-        
-        // === SOAL 3 ===
-        bs.setSisi(13);
-        daftarSoal.tambah(new SoalQuiz(
-                "Berapakah luas permukaan kubus dengan sisi 13 cm?",
-                new String[] {"674,0", "844,0",
-                    String.format("%.1f", k.getLuasPermukaan()),
-                    "1204,0"},
-                2)
-        );
-        
-        // === SOAL 4 ===
-        bs.setSisi(10);
-        s.setTinggi(12);
-        daftarSoal.tambah(new SoalQuiz(
-                "<html> Berapa volume limas dengan luas alas 100 dan <br> "
-                        + "tinggi 12 cm ? </html>",
-                new String[] {"326,0",
-                    String.format("%.1f", l.getVolume()),
-                    "397,4", "418,0"},
-                1)
-        );
-        
-        // === SOAL 5 ===
-        sa.setPanjang(10);
-        sa.setLebar(12.5);
-        st.setPanjang(12.5);
-        st.setLebar(5);
-        sd.setPanjang(10);
-        sd.setLebar(5);
-        daftarSoal.tambah(new SoalQuiz(
-                "<html> Berapa luas permukaan balok dengan panjang 10 cm, <br> "
-                        + "lebar 12,5 cm, dan tinggi 5 cm ? </html>",
-                new String[] {String.format("%.1f", b.getLuasPermukaan()),
-                    "525,0", "575,0", "625,0"},
-                0)
-        );
-    }
+    public void tampilSoal() {
+        SoalQuiz soal = daftarSoal.get(indexSoal);
+        lblPertanyaan.setText(soal.getPertanyaan());
+        rbA.setText(soal.getOpsiA());
+        rbB.setText(soal.getOpsiB());
+        rbC.setText(soal.getOpsiC());
+        rbD.setText(soal.getOpsiD());
+        groupJawaban.clearSelection();
+    }   
     
-    void tampilkanSoal(){
-        SoalQuiz s = daftarSoal.get(current);
-
-        jLabel1.setText(s.getPertanyaan());
-        jRadioButton1.setText(s.getOpsi()[0]);
-        jRadioButton2.setText(s.getOpsi()[1]);
-        jRadioButton3.setText(s.getOpsi()[2]);
-        jRadioButton4.setText(s.getOpsi()[3]);
-        
-        bg.clearSelection();
-    }
-    
-    boolean cekJawaban(){
-        SoalQuiz s = daftarSoal.get(current);
-        if (s.getJawabanBenar() == 0 && jRadioButton1.isSelected()) {
-            return true;
-        }
-        if (s.getJawabanBenar() == 1 && jRadioButton2.isSelected()) {
-            return true;
-        }
-        if (s.getJawabanBenar() == 2 && jRadioButton3.isSelected()) {
-            return true;
-        }
-        if (s.getJawabanBenar() == 3 && jRadioButton4.isSelected()) {
-            return true;
-        }
-        
-        return false;
-    }
-
-    // GUI
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
-        jRadioButton4 = new javax.swing.JRadioButton();
+        groupJawaban = new javax.swing.ButtonGroup();
+        lblPertanyaan = new javax.swing.JLabel();
+        btnNext = new javax.swing.JButton();
+        rbA = new javax.swing.JRadioButton();
+        rbB = new javax.swing.JRadioButton();
+        rbC = new javax.swing.JRadioButton();
+        rbD = new javax.swing.JRadioButton();
         jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Soal");
+        lblPertanyaan.setText("Soal");
 
-        jButton1.setText("Next");
-        jButton1.addActionListener(this::jButton1ActionPerformed);
+        btnNext.setText("Next");
+        btnNext.addActionListener(this::btnNextActionPerformed);
 
-        jButton2.setText("Result");
-        jButton2.setEnabled(false);
-        jButton2.addActionListener(this::jButton2ActionPerformed);
+        rbA.setText("Opsi 1");
+        rbA.addActionListener(this::rbAActionPerformed);
 
-        jRadioButton1.setText("Opsi 1");
+        rbB.setText("Opsi 2");
 
-        jRadioButton2.setText("Opsi 2");
+        rbC.setText("Opsi 3");
 
-        jRadioButton3.setText("Opsi 3");
-
-        jRadioButton4.setText("Opsi 4");
+        rbD.setText("Opsi 4");
 
         jButton3.setText("Home");
         jButton3.addActionListener(this::jButton3ActionPerformed);
@@ -167,28 +70,26 @@ public class Quiz extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 49, Short.MAX_VALUE)
+                .addComponent(lblPertanyaan, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(37, 37, 37))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(101, 101, 101)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(34, 34, 34)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(62, 62, 62)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jRadioButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jRadioButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jRadioButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jRadioButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(rbA, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(rbB, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(rbC, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(rbD, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jButton3)))
+                        .addComponent(jButton3))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(131, 131, 131)
+                        .addComponent(btnNext, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 49, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -196,44 +97,58 @@ public class Quiz extends javax.swing.JFrame {
                 .addContainerGap(9, Short.MAX_VALUE)
                 .addComponent(jButton3)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel1)
+                .addComponent(lblPertanyaan)
                 .addGap(18, 18, 18)
-                .addComponent(jRadioButton1)
+                .addComponent(rbA)
                 .addGap(18, 18, 18)
-                .addComponent(jRadioButton2)
+                .addComponent(rbB)
                 .addGap(18, 18, 18)
-                .addComponent(jRadioButton3)
+                .addComponent(rbC)
                 .addGap(18, 18, 18)
-                .addComponent(jRadioButton4)
+                .addComponent(rbD)
                 .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                .addComponent(btnNext)
                 .addGap(29, 29, 29))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        if (cekJawaban()){
-            score++;
+    private void btnNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextActionPerformed
+        String jawabanUser = "";
+        if(rbA.isSelected()) {
+            jawabanUser = "a";
         }
-        current++;
-        if (current == daftarSoal.size() - 1) {
-            jButton1.setText("Submit");
+        else if(rbB.isSelected()) {
+            jawabanUser = "b";
         }
-        if (current < daftarSoal.size()) {
-            tampilkanSoal();
+        else if(rbC.isSelected()) {
+            jawabanUser = "c";
+        }
+        else if(rbD.isSelected()) {
+            jawabanUser = "d";
+        }
+        
+        SoalQuiz soal = daftarSoal.get(indexSoal);
+        if (jawabanUser.equalsIgnoreCase(soal.getJawaban())) {
+            skor++;
+        }
+        indexSoal++;
+        if (indexSoal < daftarSoal.size()) {
+            tampilSoal();
         } else {
-            jButton1.setEnabled(false);
-            jButton2.setEnabled(true);
-            javax.swing.JOptionPane.showMessageDialog(this, "Score : " + score);
-//            System.exit(0);
-
+            lblPertanyaan.setText("Quiz selesai. Skor: " + skor);
+            rbA.setVisible(false);
+            rbB.setVisible(false);
+            rbC.setVisible(false);
+            rbD.setVisible(false);
+            btnNext.setEnabled(false);
+            MysqlHasilQuizService service =  new MysqlHasilQuizService();
+            HasilQuiz hasil = new HasilQuiz(Session.idAccount, skor, 120);
+            service.add(hasil);
+            javax.swing.JOptionPane.showMessageDialog(this, "Hasil berhasil disimpan!");
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnNextActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         MainMenu menu = new MainMenu();
@@ -242,9 +157,9 @@ public class Quiz extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        javax.swing.JOptionPane.showMessageDialog(this, "Score : " + score);    
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void rbAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbAActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rbAActionPerformed
 
     // RUN
     public static void main(String args[]) {
@@ -270,13 +185,13 @@ public class Quiz extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnNext;
+    private javax.swing.ButtonGroup groupJawaban;
     private javax.swing.JButton jButton3;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
-    private javax.swing.JRadioButton jRadioButton4;
+    private javax.swing.JLabel lblPertanyaan;
+    private javax.swing.JRadioButton rbA;
+    private javax.swing.JRadioButton rbB;
+    private javax.swing.JRadioButton rbC;
+    private javax.swing.JRadioButton rbD;
     // End of variables declaration//GEN-END:variables
 }

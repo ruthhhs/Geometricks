@@ -1,5 +1,6 @@
 package tubespbo.jdbc.service;
 
+import tubespbo.util.Session;
 import tubespbo.jdbc.utilities.MysqlUtility;
 import java.sql.*;
 import java.util.ArrayList;
@@ -18,6 +19,26 @@ public class MysqlService {
         return new Account();
     }
 
+    public Account getByUsername(String username) {
+        Account acc = null;
+        try {
+            String query = "SELECT * FROM account WHERE username=?";
+            PreparedStatement ps = koneksi.prepareStatement(query);
+            ps.setString(1, username);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                acc = new Account(
+                    rs.getString("username"),
+                    rs.getString("password")
+                );
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        return acc;
+    }
     // =====================
     // INSERT
     // =====================
@@ -26,7 +47,7 @@ public class MysqlService {
             String query = "INSERT INTO account (id_account, username, password) VALUES (?, ?, ?)";
             PreparedStatement ps = koneksi.prepareStatement(query);
 
-            ps.setString(1, acc.getIdAccount());
+            ps.setInt(1, acc.getIdAccount());
             ps.setString(2, acc.getUsername());
             ps.setString(3, acc.getPassword());
 
@@ -48,7 +69,7 @@ public class MysqlService {
 
             ps.setString(1, acc.getUsername());
             ps.setString(2, acc.getPassword());
-            ps.setString(3, acc.getIdAccount());
+            ps.setInt(3, acc.getIdAccount());
 
             ps.executeUpdate();
             System.out.println("Berhasil update account");
@@ -92,7 +113,7 @@ public class MysqlService {
 
             if (rs.next()) {
                 acc = new Account(
-                    rs.getString("id_account"),
+                    rs.getInt("id_account"),
                     rs.getString("username"),
                     rs.getString("password")
                 );
@@ -120,7 +141,7 @@ public class MysqlService {
 
             while (rs.next()) {
                 list.add(new Account(
-                    rs.getString("id_account"),
+                    rs.getInt("id_account"),
                     rs.getString("username"),
                     rs.getString("password")
                 ));
@@ -149,7 +170,10 @@ public class MysqlService {
             
             if (rs.next()) {
                 isValid = true;
+                Session.idAccount = rs.getInt("id_account");
+                Session.username = rs.getString("username");
                 System.out.println("Login berhasil untuk user: " + username);
+                System.out.println("ID account: " + Session.idAccount);
             } else {
                 System.out.println("Login gagal: username/password salah");
             }
@@ -188,7 +212,7 @@ public class MysqlService {
             
             if (rs.next()) {
                 acc = new Account(
-                    rs.getString("id_account"),
+                    rs.getInt("id_account"),
                     rs.getString("username"),
                     rs.getString("password")
                 );

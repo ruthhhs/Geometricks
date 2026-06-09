@@ -1,4 +1,4 @@
-package tubespbo.frame;
+package tubespbo.view;
 
 import java.awt.HeadlessException;
 import javax.swing.JOptionPane;

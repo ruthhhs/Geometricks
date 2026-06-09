@@ -1,4 +1,4 @@
-package tubespbo.frame;
+package tubespbo.view;
 
 public class MainMenu extends javax.swing.JFrame {
     

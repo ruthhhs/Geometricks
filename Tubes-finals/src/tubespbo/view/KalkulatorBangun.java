@@ -1,19 +1,17 @@
-package tubespbo.frame;
+package tubespbo.view;
 
-import tubespbo.modul.*;
-import static java.lang.Math.sqrt;
+import tubespbo.controller.KalkulatorBangunController;
 import java.util.logging.Logger;
-import java.util.logging.Level;
-import java.util.ArrayList;
 
 public class KalkulatorBangun extends javax.swing.JFrame {
     
     private static final Logger logger = Logger.getLogger(KalkulatorBangun.class.getName());
     
     // === VARIABLES ===
-    private ArrayList<Double> inputs = new ArrayList<>();
+    private KalkulatorBangunController controller =
+        new KalkulatorBangunController();
+    
     private int expectedInput = 0;
-    private String selectedBangun = "";
     private boolean initDone = false;
     
     // === BUILD ===
@@ -36,87 +34,34 @@ public class KalkulatorBangun extends javax.swing.JFrame {
     }
 
     // === LOGICS===
-    private void tampilPromptBerikutnya(){
-        if(selectedBangun.equals("Persegi Panjang")){
-            if(inputs.size()==1)
-                txtOutput.setText("\nMasukkan lebar");
-        }
-        if(selectedBangun.equals("Segitiga")){
-            if(inputs.size()==1)
-                txtOutput.setText("\nMasukkan tinggi");
-        }
-        if(selectedBangun.equals("Balok")){
-            if(inputs.size()==1)
-                txtOutput.setText("\nMasukkan lebar");
-            else if(inputs.size()==2)
-                txtOutput.setText("\nMasukkan tinggi");
-        }
-        if(selectedBangun.equals("Limas")){
-            if(inputs.size()==1)
-                txtOutput.setText("\nMasukkan tinggi");
-        }
-    }
-    
-    private void prosesBangun(){
+    private void prosesInput() {
+        try{
+            double angka =
+                Double.parseDouble(txtInput.getText());
+            txtInput.setText("");
+            boolean selesai =
+                controller.addInput(angka);
 
-        switch(selectedBangun){
-            case "Bujur Sangkar" -> {
-                BujurSangkar bs = new BujurSangkar();
-                bs.setSisi(inputs.get(0));
-                txtBoxOutput.append(bs.printDetail());
+            if(selesai){
+                txtBoxOutput.append(
+                    controller.prosesBangun()
+                );
+                txtOutput.setText(
+                    "Bangun sukses ditambahkan!"
+                );
+                jButtonAdd.setEnabled(false);
+
+            }else{
+                txtOutput.setText(
+                    controller.getPromptBerikutnya()
+                );
             }
-            case "Persegi Panjang" -> {
-                PersegiPanjang pp = new PersegiPanjang();
-                pp.setPanjang(inputs.get(0));
-                pp.setLebar(inputs.get(1));
-                txtBoxOutput.append(pp.printDetail());
-            }
-            case "Segitiga" -> {
-                SegiTiga s = new SegiTiga();
-                s.setAlas(inputs.get(0));
-                s.setTinggi(inputs.get(1));
-                txtBoxOutput.append(s.printDetail());
-            }
-            case "Kubus" -> {
-                BujurSangkar s = new BujurSangkar();
-                s.setSisi(inputs.get(0));
-                Kubus k = new Kubus(s);
-                txtBoxOutput.append(k.printDetail());
-            }
-            case "Balok" -> {
-                PersegiPanjang sa = new PersegiPanjang();
-                PersegiPanjang st = new PersegiPanjang();
-                PersegiPanjang sd = new PersegiPanjang();
-                
-                sa.setPanjang(inputs.get(0));
-                sa.setLebar(inputs.get(1));
-                st.setPanjang(inputs.get(1));
-                st.setLebar(inputs.get(2));
-                sd.setPanjang(inputs.get(0));
-                sd.setLebar(inputs.get(2));
-                
-                Balok b = new Balok(sa, st, sd);
-                txtBoxOutput.append(b.printDetail());
-            }
-            case "Limas" -> {
-                BujurSangkar a = new BujurSangkar();
-                SegiTiga s = new SegiTiga();
-                
-                double al = inputs.get(0);
-                double tl = inputs.get(1);
-                double ts = sqrt( (0.5 * al)*(0.5 * al) + tl*tl );
-                        
-                a.setSisi(al);
-                s.setAlas(inputs.get(0));
-                s.setTinggi(ts);
-                
-                Limas l = new Limas(a, s);
-                txtBoxOutput.append(l.printDetail());
-            }
+
+        }catch(NumberFormatException e){
+            txtOutput.setText(
+                "Input harus angka!"
+            );
         }
-        
-        txtOutput.setText("Bangun sukses ditambahkan!");
-        jButtonAdd.setEnabled(false);
     }
     
     // === GUI ===
@@ -251,31 +196,19 @@ public class KalkulatorBangun extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     
     private void txtInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtInputActionPerformed
-        try{
-            double val = Double.parseDouble(txtInput.getText());
-            inputs.add(val);
-
-            txtInput.setText("");
-
-            if(inputs.size() == expectedInput){
-                prosesBangun();
-                inputs.clear();
-            }else{
-                tampilPromptBerikutnya();
-            }
-            
-        } catch(Exception e){
-            txtOutput.setText("\nInput harus angka!");
-        }
+        prosesInput();
     }//GEN-LAST:event_txtInputActionPerformed
 
     private void comboBangunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBangunActionPerformed
         if (!initDone) return;
         
-        selectedBangun = comboBangun.getSelectedItem().toString();
-        //inputs.clear();
+        String bangun =
+            comboBangun.getSelectedItem().toString();
 
-        switch(selectedBangun){
+        controller.setBangun(bangun);
+        controller.clearInputs();
+
+        switch(bangun){
             case "Bujur Sangkar" -> {
                 expectedInput = 1;
                 txtOutput.setText("Masukkan sisi");
@@ -301,27 +234,14 @@ public class KalkulatorBangun extends javax.swing.JFrame {
                 txtOutput.setText("Masukkan sisi alas");
             }
         }
+        controller.setExpectedInput(expectedInput);
+        txtOutput.setText(controller.getPromptAwal());
         txtBoxOutput.setText("");
         jButtonAdd.setEnabled(true);
     }//GEN-LAST:event_comboBangunActionPerformed
 
     private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddActionPerformed
-        try{
-            double angka = Double.parseDouble(txtInput.getText());
-
-            inputs.add(angka);
-            txtInput.setText("");
-
-            if(inputs.size() == expectedInput){
-                prosesBangun();
-                inputs.clear();
-            } else {
-                tampilPromptBerikutnya();
-            }
-
-        }catch(NumberFormatException e){
-            txtOutput.setText("Input harus angka!\n");
-        }
+        prosesInput();
     }//GEN-LAST:event_jButtonAddActionPerformed
 
     private void jButtonBackToMainMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBackToMainMenuActionPerformed

@@ -1,4 +1,4 @@
-package tubespbo.jdbc.service;
+package tubespbo.service;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;

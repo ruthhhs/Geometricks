@@ -1,6 +1,5 @@
-package tubespbo.jdbc.service;
+package tubespbo.service;
 
-import tubespbo.jdbc.utilities.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 

@@ -2,7 +2,7 @@ package tubespbo.view;
 
 import java.awt.HeadlessException;
 import javax.swing.JOptionPane;
-import tubespbo.jdbc.service.MysqlService;
+import tubespbo.service.MysqlService;
 
 public class ForgetPassword extends javax.swing.JFrame {
     

@@ -1,7 +1,5 @@
 package tubespbo.model;
 
-import tubespbo.jdbc.model.*;
-
 public class HasilQuiz {
     private int idHasil;
     private int idAccount;

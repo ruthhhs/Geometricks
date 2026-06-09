@@ -1,7 +1,5 @@
 package tubespbo.model;
 
-import tubespbo.util.*;
-
 public class Session {
 
     public static int idAccount = -1;

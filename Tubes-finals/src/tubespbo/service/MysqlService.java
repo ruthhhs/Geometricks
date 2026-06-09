@@ -1,4 +1,4 @@
-package tubespbo.jdbc.service;
+package tubespbo.service;
 
 import tubespbo.model.Session;
 import java.sql.*;

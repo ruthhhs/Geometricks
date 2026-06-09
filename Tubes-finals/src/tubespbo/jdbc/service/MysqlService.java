@@ -23,12 +23,11 @@ public class MysqlService {
     // =====================
     public void add(Account acc) {
         try {
-            String query = "INSERT INTO account (id_account, username, password) VALUES (?, ?, ?)";
+            String query = "INSERT INTO account (username, password) VALUES (?, ?)";
             PreparedStatement ps = koneksi.prepareStatement(query);
 
-            ps.setString(1, acc.getIdAccount());
-            ps.setString(2, acc.getUsername());
-            ps.setString(3, acc.getPassword());
+            ps.setString(1, acc.getUsername());
+            ps.setString(2, acc.getPassword());
 
             ps.executeUpdate();
             System.out.println("Berhasil insert account");

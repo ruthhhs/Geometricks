@@ -48,6 +48,7 @@ public class LogIn extends javax.swing.JFrame {
             // Buka MainMenu
             try {
                 MainMenu mainMenu = new MainMenu();
+                mainMenu.setLoggedInUser(username);
                 mainMenu.setVisible(true);
                 this.dispose(); // Tutup form login
             } catch (Exception e) {
@@ -111,9 +112,8 @@ public class LogIn extends javax.swing.JFrame {
         }
         
         // Simpan ke database 
-        String id = String.valueOf(System.currentTimeMillis());
         try {
-            Account newAccount = new Account(id, username, password);
+            Account newAccount = new Account(null, username, password);
             userService.add(newAccount);
 
             JOptionPane.showMessageDialog(this, 
@@ -145,6 +145,7 @@ public class LogIn extends javax.swing.JFrame {
         ForgetPassword = new javax.swing.JButton();
         jButtonSave = new javax.swing.JButton();
         jButtonLogIn = new javax.swing.JButton();
+        BacktoMenu = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -164,6 +165,9 @@ public class LogIn extends javax.swing.JFrame {
         jButtonLogIn.setText("Log In");
         jButtonLogIn.addActionListener(this::jButtonLogInActionPerformed);
 
+        BacktoMenu.setText("Menu");
+        BacktoMenu.addActionListener(this::BacktoMenuActionPerformed);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -175,18 +179,22 @@ public class LogIn extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(141, 141, 141)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ForgetPassword)
                     .addComponent(jButtonSave)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jButtonLogIn)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel2)
-                                .addComponent(jLabel1))
-                            .addGap(34, 34, 34)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jTextFieldUsername)
-                                .addComponent(jPasswordFieldPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)))))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(ForgetPassword)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
+                            .addComponent(BacktoMenu))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButtonLogIn)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel1))
+                                .addGap(34, 34, 34)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jTextFieldUsername)
+                                    .addComponent(jPasswordFieldPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE))))))
                 .addContainerGap(97, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -207,7 +215,9 @@ public class LogIn extends javax.swing.JFrame {
                     .addComponent(jButtonSave)
                     .addComponent(jButtonLogIn))
                 .addGap(11, 11, 11)
-                .addComponent(ForgetPassword)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ForgetPassword)
+                    .addComponent(BacktoMenu))
                 .addContainerGap(160, Short.MAX_VALUE))
         );
 
@@ -234,7 +244,24 @@ public class LogIn extends javax.swing.JFrame {
     private void jButtonLogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLogInActionPerformed
         login();
     }//GEN-LAST:event_jButtonLogInActionPerformed
+
+    private void BacktoMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BacktoMenuActionPerformed
+            openMenuPage();        
+    }//GEN-LAST:event_BacktoMenuActionPerformed
     
+    private void openMenuPage() {
+        try {
+            this.dispose();
+            
+            MainMenu mainMenu = new MainMenu();
+            mainMenu.setVisible(true);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, 
+                "Gagal membuka halaman Sign In: " + e.getMessage(), 
+                "Error", 
+                JOptionPane.ERROR_MESSAGE);
+        }
+    }
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -259,6 +286,7 @@ public class LogIn extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BacktoMenu;
     private javax.swing.JButton ForgetPassword;
     private javax.swing.JButton jButtonLogIn;
     private javax.swing.JButton jButtonSave;

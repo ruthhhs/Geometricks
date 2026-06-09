@@ -5,12 +5,29 @@ import javax.swing.JOptionPane;
 public class MainMenu extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(MainMenu.class.getName());
-
+    private String loggedInUsername;
+    
     // BUILD
     public MainMenu() {
         initComponents();
+        loggedInUsername = "";
+        updateLabelWelcome();
     }
 
+    // Method untuk mengupdate label selamat datang
+    private void updateLabelWelcome() {
+        if (loggedInUsername == null || loggedInUsername.isEmpty()) {
+            labelMainMenu.setText("Kamu Belum Login");
+        } else {
+            labelMainMenu.setText("Selamat Datang, " + loggedInUsername + "!");
+        }
+    }
+    
+    public void setLoggedInUser(String username) {
+        this.loggedInUsername = username;
+        updateLabelWelcome();
+    }
+    
     // GUI
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -79,9 +96,8 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonKuisActionPerformed
 
     private void jButtonAkunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAkunActionPerformed
-        
+        // Jika sudah login, tampilkan opsi logout
         openSignInPage();
-        
     }//GEN-LAST:event_jButtonAkunActionPerformed
 
     private void openSignInPage() {

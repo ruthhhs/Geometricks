@@ -8,6 +8,12 @@ public class Account {
 
     public Account() {
     }
+    
+    public Account(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
 
     public Account(String idAccount, String username, String password) {
         this.idAccount = idAccount;

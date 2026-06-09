@@ -1,4 +1,4 @@
-package tubespbo.jdbc.model;
+package tubespbo.model;
 
 public class Account {
 

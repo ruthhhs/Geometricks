@@ -1,6 +1,6 @@
 package tubespbo.controller;
 
-import tubespbo.modul.*;
+import tubespbo.model.*;
 import java.util.ArrayList;
 import static java.lang.Math.sqrt;
 

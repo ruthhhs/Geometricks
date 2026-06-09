@@ -1,4 +1,4 @@
-package tubespbo.modul;
+package tubespbo.model;
 
 public class Limas extends BangunRuang implements IValidasi{
     // ====== ATRIBUT ======

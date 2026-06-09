@@ -1,4 +1,4 @@
-package tubespbo.modul;
+package tubespbo.model;
 
 public class Kubus extends BangunRuang {
     // ====== ATRIBUT ======

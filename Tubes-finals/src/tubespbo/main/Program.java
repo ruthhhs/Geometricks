@@ -1,9 +1,9 @@
-package tubespbo.jdbc.program;
+package tubespbo.main;
 
-import tubespbo.jdbc.model.Account;
-import tubespbo.jdbc.model.HasilQuiz;
-import tubespbo.jdbc.service.MysqlService;
-import tubespbo.jdbc.service.MysqlHasilQuizService;
+import tubespbo.model.Account;
+import tubespbo.model.HasilQuiz;
+import tubespbo.service.MysqlService;
+import tubespbo.service.MysqlHasilQuizService;
 import java.math.BigDecimal;
 
 public class Program {

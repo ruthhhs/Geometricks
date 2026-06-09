@@ -1,10 +1,10 @@
-package tubespbo.jdbc.service;
+package tubespbo.service;
 
-import tubespbo.jdbc.utilities.MysqlUtility;
+import tubespbo.service.MysqlUtility;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import tubespbo.jdbc.model.HasilQuiz;
+import tubespbo.model.HasilQuiz;
 
 public class MysqlHasilQuizService {
 

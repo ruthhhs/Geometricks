@@ -1,9 +1,11 @@
 package tubespbo.view;
 
+import tubespbo.model.Account;
 import tubespbo.model.Session;
+
 import java.awt.HeadlessException;
 import javax.swing.JOptionPane;
-import tubespbo.model.Account;
+
 import tubespbo.service.MysqlService;
 import static tubespbo.view.LogIn.userService;
 

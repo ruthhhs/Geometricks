@@ -4,7 +4,7 @@ public class BujurSangkar extends BangunDatar {
     // ====== ATRIBUT ======
     private double sisi;
 
-    // ====== METHOD KONSTRUKTOR ======
+    // ====== KONSTRUKTOR ======
     public BujurSangkar(){
         setJumlahSisi(4);
     }
@@ -14,12 +14,12 @@ public class BujurSangkar extends BangunDatar {
         this.sisi = sisi;
     }
 
-    // ====== METHOD SELEKTOR ======
+    // ====== SELEKTOR ======
     public double getSisi(){
         return sisi;
     }
 
-    // ====== METHOD MUTATOR  ======
+    // ====== MUTATOR  ======
     public void setSisi(double sisi){
         this.sisi = sisi;
     }
@@ -29,14 +29,17 @@ public class BujurSangkar extends BangunDatar {
         return sisi * Math.sqrt(2);
     };
 
+    @Override
     public double getKeliling(){
         return 4 * sisi;
     }
 
+    @Override
     public double getLuas(){
         return sisi * sisi;
     }
 
+    @Override
     public String printDetail(){
         return
             "--- Detail Bujur Sangkar ---" +

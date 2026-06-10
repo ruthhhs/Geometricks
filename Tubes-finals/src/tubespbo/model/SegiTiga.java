@@ -5,7 +5,7 @@ public class SegiTiga extends BangunDatar {
     private double alas;
     private double tinggi;
 
-    // ====== METHOD KONSTRUKTOR ======
+    // ====== KONSTRUKTOR ======
     public SegiTiga(){
         setJumlahSisi(4);
     }
@@ -16,7 +16,7 @@ public class SegiTiga extends BangunDatar {
         this.tinggi = tinggi;
     }
 
-    // ====== METHOD SELEKTOR ======
+    // ====== SELEKTOR ======
     public double getAlas(){
         return alas;
     }
@@ -25,7 +25,7 @@ public class SegiTiga extends BangunDatar {
         return tinggi;
     }
 
-    // ====== METHOD MUTATOR  ======
+    // ====== MUTATOR  ======
     public void setAlas(double alas){
         this.alas = alas;
     }
@@ -35,15 +35,18 @@ public class SegiTiga extends BangunDatar {
     }
 
     // ====== METHOD LAINNYA ======
+    @Override
     public double getKeliling(){
         double sisiMiring = Math.sqrt(Math.pow(alas / 2, 2) + Math.pow(tinggi, 2));
         return alas + 2 * sisiMiring; 
     }
 
+    @Override
     public double getLuas(){
         return 0.5 * alas * tinggi;
     }
 
+    @Override
     public String printDetail(){
         return
             "--- Detail Segitiga ---" +

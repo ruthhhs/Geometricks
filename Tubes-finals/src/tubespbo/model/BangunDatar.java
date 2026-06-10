@@ -6,7 +6,7 @@ public abstract class BangunDatar {
     private String warna;
     private static int counterBangunDatar;
 
-    // ====== METHOD KONSTRUKTOR ======
+    // ====== KONSTRUKTOR ======
     public BangunDatar() {
         this(0, "Putih");
     }
@@ -17,7 +17,7 @@ public abstract class BangunDatar {
         counterBangunDatar ++;
     }
 
-    // ====== METHOD SELEKTOR ======
+    // ====== SELEKTOR ======
     public int getJumlahSisi() {
         return jumlahSisi;
     }
@@ -30,7 +30,7 @@ public abstract class BangunDatar {
         return counterBangunDatar;
     }
 
-    // ====== METHOD MUTATOR  ======
+    // ====== MUTATOR  ======
     public void setJumlahSisi (int jumlahSisi) {
         this.jumlahSisi = jumlahSisi;
     }

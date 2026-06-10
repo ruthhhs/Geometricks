@@ -5,7 +5,7 @@ public class PersegiPanjang extends BangunDatar {
     private double panjang;
     private double lebar;
 
-    // ====== METHOD KONSTRUKTOR ======
+    // ====== KONSTRUKTOR ======
     public PersegiPanjang(){
         setJumlahSisi(4);
     }
@@ -16,7 +16,7 @@ public class PersegiPanjang extends BangunDatar {
         this.lebar = lebar;
     }
 
-    // ====== METHOD SELEKTOR ======
+    // ====== SELEKTOR ======
     public double getPanjang(){
         return panjang;
     }
@@ -25,7 +25,7 @@ public class PersegiPanjang extends BangunDatar {
         return lebar;
     }
 
-    // ====== METHOD MUTATOR  ======
+    // ====== MUTATOR  ======
     public void setPanjang(double panjang){
         this.panjang = panjang;
     }
@@ -38,15 +38,18 @@ public class PersegiPanjang extends BangunDatar {
     public double getDiagonal(){
         return Math.sqrt(Math.pow(panjang, 2) + Math.pow(lebar, 2));
     };
-
+    
+    @Override
     public double getKeliling(){
         return 2 * (panjang + lebar);
     }
 
+    @Override
     public double getLuas(){
         return panjang * lebar;
     }
 
+    @Override
     public String printDetail(){
         return
             "--- Detail Persegi Panjang ---" +

@@ -1,11 +1,12 @@
 package tubespbo.model;
 
 public class Account {
-
+    // ====== ATRIBUT ======
     private int idAccount;
     private String username;
     private String password;
-
+    
+    // ====== KONTRUKTOR ======
     public Account() {
     }
 
@@ -20,24 +21,26 @@ public class Account {
         this.password = password;
     }
 
+    // ====== SELEKTOR ======
     public int getIdAccount() {
         return idAccount;
-    }
-
-    public void setIdAccount(int idAccount) {
-        this.idAccount = idAccount;
     }
 
     public String getUsername() {
         return username;
     }
+    
+    public String getPassword() {
+        return password;
+    }
+    
+    // ====== MUTATOR ======
+    public void setIdAccount(int idAccount) {
+        this.idAccount = idAccount;
+    }
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
     }
 
     public void setPassword(String password) {

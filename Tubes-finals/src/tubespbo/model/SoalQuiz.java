@@ -1,7 +1,8 @@
 package tubespbo.model;
 
 public class SoalQuiz {
-    private int id;
+    // ====== ATRIBUT ======
+    private int idSoal;
     private String pertanyaan;
     private String opsiA;
     private String opsiB;
@@ -9,8 +10,9 @@ public class SoalQuiz {
     private String opsiD;
     private String jawaban;
 
+    // ====== KONSTRUKTOR ======
     public SoalQuiz(
-            int id,
+            int idSoal,
             String pertanyaan,
             String opsiA,
             String opsiB,
@@ -18,7 +20,7 @@ public class SoalQuiz {
             String opsiD,
             String jawaban
     ) {
-        this.id = id;
+        this.idSoal = idSoal;
         this.pertanyaan = pertanyaan;
         this.opsiA = opsiA;
         this.opsiB = opsiB;
@@ -27,8 +29,9 @@ public class SoalQuiz {
         this.jawaban = jawaban;
     }
 
-    public int getId() {
-        return id;
+    // ====== SELEKTOR ======
+    public int getIdSoal() {
+        return idSoal;
     }
 
     public String getPertanyaan() {

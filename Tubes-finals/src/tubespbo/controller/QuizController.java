@@ -1,54 +1,70 @@
 package tubespbo.controller;
 
-import java.util.ArrayList;
+import tubespbo.model.HasilQuiz;
+import tubespbo.model.Koleksi;
+import tubespbo.model.Session;
+import tubespbo.model.SoalQuiz;
+import tubespbo.service.MysqlHasilQuizService;
+import tubespbo.service.MysqlSoalQuizService;
 
 public class QuizController {
-    private ArrayList<String> soalList = new ArrayList<>();
-    private ArrayList<Integer> jawabanBenar = new ArrayList<>();
-    private ArrayList<Integer> jawabanUser = new ArrayList<>();
-    private int currentIndex = 0;
+    // ===== ATRIBUT ======
+    private Koleksi<SoalQuiz> daftarSoal = new Koleksi<>();
+    private int indexSoal = 0;
+    private int skor = 0;
 
-    // ===== SET SOAL =====
-    public void addSoal(String soal, int jawaban) {
-        soalList.add(soal);
-        jawabanBenar.add(jawaban);
+    // ===== INIT: load soal dari DB =====
+    public void loadSoal() {
+        MysqlSoalQuizService service = new MysqlSoalQuizService();
+        daftarSoal = service.getAllSoal();
+        indexSoal = 0;
+        skor = 0;
     }
 
-    // ===== GET SOAL =====
-    public String getSoalSekarang() {
-        if (currentIndex < soalList.size()) {
-            return soalList.get(currentIndex);
-        }
-        return "Selesai";
+    // ===== GET soal sekarang =====
+    public SoalQuiz getSoalSekarang() {
+        return daftarSoal.get(indexSoal);
     }
 
-    // ===== INPUT JAWABAN USER =====
-    public void submitJawaban(int jawaban) {
-        jawabanUser.add(jawaban);
-        currentIndex++;
+    // ===== SUBMIT jawaban user (a/b/c/d), return true jika benar =====
+    public boolean submitJawaban(String jawabanUser) {
+        SoalQuiz soal = daftarSoal.get(indexSoal);
+        boolean benar = jawabanUser.equalsIgnoreCase(soal.getJawaban());
+        if (benar) skor++;
+        indexSoal++;
+        return benar;
     }
 
-    // ===== CEK MASIH ADA SOAL =====
+    // ===== CEK apakah masih ada soal berikutnya =====
     public boolean hasNext() {
-        return currentIndex < soalList.size();
+        return indexSoal < daftarSoal.size();
     }
 
-    // ===== HITUNG SKOR =====
+    // ===== GET nomor soal sekarang (1-based untuk tampilan) =====
+    public int getNomorSoal() {
+        return indexSoal + 1;
+    }
+
+    // ===== GET total soal =====
+    public int getTotalSoal() {
+        return daftarSoal.size();
+    }
+
+    // ===== GET skor akhir =====
     public int getSkor() {
-        int skor = 0;
-
-        for (int i = 0; i < jawabanBenar.size(); i++) {
-            if (jawabanUser.get(i).equals(jawabanBenar.get(i))) {
-                skor += 10; // tiap benar 10 poin
-            }
-        }
-
         return skor;
     }
 
-    // ===== RESET QUIZ =====
+    // ===== SIMPAN hasil ke DB =====
+    public void simpanHasil() {
+        MysqlHasilQuizService service = new MysqlHasilQuizService();
+        HasilQuiz hasil = new HasilQuiz(Session.idAccount, skor, 120);
+        service.add(hasil);
+    }
+
+    // ===== RESET untuk main ulang =====
     public void reset() {
-        currentIndex = 0;
-        jawabanUser.clear();
+        indexSoal = 0;
+        skor = 0;
     }
 }

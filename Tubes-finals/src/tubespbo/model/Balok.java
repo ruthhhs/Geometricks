@@ -6,7 +6,7 @@ public class Balok extends BangunRuang implements IValidasi{
     private PersegiPanjang sisiTegak;
     private PersegiPanjang sisiDepan;
 
-    // ====== METHOD KONSTRUKTOR ======
+    // ====== KONSTRUKTOR ======
     public Balok(){
         setJumlahSisi(6);
         setJumlahRusuk(12);
@@ -25,7 +25,7 @@ public class Balok extends BangunRuang implements IValidasi{
         }
     }
 
-    // ====== METHOD SELEKTOR ======
+    // ====== SELEKTOR ======
     public PersegiPanjang getSisiAlas(){
         return sisiAlas;
     }
@@ -38,7 +38,7 @@ public class Balok extends BangunRuang implements IValidasi{
         return sisiDepan;
     }
 
-    // ====== METHOD MUTATOR  ======
+    // ====== MUTATOR  ======
     public void setSisiAlas(PersegiPanjang sisiAlas){
         this.sisiAlas = sisiAlas;
     }
@@ -52,6 +52,13 @@ public class Balok extends BangunRuang implements IValidasi{
     }
 
     // ====== METHOD LAINNYA ======
+    public double getDiagonalRuang(){
+        return Math.sqrt(Math.pow(sisiAlas.getPanjang(), 2)
+                        + Math.pow(sisiAlas.getLebar(), 2)
+                        + Math.pow(sisiTegak.getLebar(), 2));
+    }
+    
+    @Override
     public boolean isValid() {
         double p = this.sisiAlas.getPanjang();
         double l = sisiAlas.getLebar();
@@ -59,12 +66,6 @@ public class Balok extends BangunRuang implements IValidasi{
         return (sisiTegak.getPanjang() == l &&
                 sisiDepan.getPanjang() == p &&
                 sisiDepan.getLebar() == t);
-    }
-
-    public double getDiagonalRuang(){
-        return Math.sqrt(Math.pow(sisiAlas.getPanjang(), 2)
-                        + Math.pow(sisiAlas.getLebar(), 2)
-                        + Math.pow(sisiTegak.getLebar(), 2));
     }
 
     @Override

@@ -6,13 +6,18 @@ import tubespbo.model.Koleksi;
 import tubespbo.model.SoalQuiz;
 
 public class MysqlSoalQuizService {
+    Connection koneksi = null;
+    
+    public MysqlSoalQuizService() {
+        koneksi = MysqlUtility.getConnection();
+    }
+    
     public Koleksi<SoalQuiz> getAllSoal() {
         Koleksi<SoalQuiz> listSoal = new Koleksi<>();
         try {
-            Connection conn = MysqlUtility.getConnection();
-            String sql = "SELECT * FROM soal_quiz";
-            Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery(sql);
+            String query = "SELECT * FROM soal_quiz";
+            Statement st = koneksi.createStatement();
+            ResultSet rs = st.executeQuery(query);
             while(rs.next()) {
                 SoalQuiz soal = new SoalQuiz(
                     rs.getInt("id_soal"),

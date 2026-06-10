@@ -1,169 +1,63 @@
 package tubespbo.view;
 
-import tubespbo.model.*;
-import javax.swing.ButtonGroup;
+import tubespbo.controller.QuizController;
+import tubespbo.model.SoalQuiz;
 
 public class Quiz extends javax.swing.JFrame {
-    
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Quiz.class.getName());
+    
+    private QuizController controller = new QuizController();
 
-    // ATRIBUTS
-    int current = 0;
-    int score = 0;
-    Koleksi<SoalQuiz> daftarSoal = new Koleksi<>();
-    ButtonGroup bg = new ButtonGroup();
-
-    // BUILD
-    public Quiz() {
+    public Quiz () {
         initComponents();
-        
-        bg.add(jRadioButton1);
-        bg.add(jRadioButton2);
-        bg.add(jRadioButton3);
-        bg.add(jRadioButton4);
-        
-        generateSoal();
-        tampilkanSoal();
+        groupJawaban.add(rbA);
+        groupJawaban.add(rbB);
+        groupJawaban.add(rbC);
+        groupJawaban.add(rbD);
+        controller.loadSoal();
+        tampilSoal();
     }
     
-    // LOGICS
-    void generateSoal() {
-        BujurSangkar bs = new BujurSangkar();
-        PersegiPanjang pp = new PersegiPanjang();
-        PersegiPanjang sa = new PersegiPanjang();
-        PersegiPanjang st = new PersegiPanjang();
-        PersegiPanjang sd = new PersegiPanjang();
-        SegiTiga s = new SegiTiga();
-        Kubus k = new Kubus(bs);
-        Balok b = new Balok(sa, st, sd);
-        Limas l = new Limas(bs, s);
-        
-        // === SOAL 1 ===
-        bs.setSisi(3.8);
-        daftarSoal.tambah(new SoalQuiz(
-                "Berapakah luas persegi dengan sisi 3.8 cm?",
-                new String[] {"11,4", "12,4", "13,4",
-                    String.format("%.1f", bs.getLuas())},
-                3)
-        );
-        
-        // === SOAL 2 ===
-        pp.setPanjang(33);
-        pp.setLebar(44);
-        daftarSoal.tambah(new SoalQuiz(
-                "<html> Berapa panjang diagonal persegi panjang dengan <br>"
-                        + "panjang 33 cm dan lebar 44 cm ? </html>",
-                new String [] {"54,0",
-                    String.format("%.1f", pp.getDiagonal()),
-                    "56,0", "57,0"},
-                1)
-        );
-        
-        // === SOAL 3 ===
-        bs.setSisi(13);
-        daftarSoal.tambah(new SoalQuiz(
-                "Berapakah luas permukaan kubus dengan sisi 13 cm?",
-                new String[] {"674,0", "844,0",
-                    String.format("%.1f", k.getLuasPermukaan()),
-                    "1204,0"},
-                2)
-        );
-        
-        // === SOAL 4 ===
-        bs.setSisi(10);
-        s.setTinggi(12);
-        daftarSoal.tambah(new SoalQuiz(
-                "<html> Berapa volume limas dengan luas alas 100 dan <br> "
-                        + "tinggi 12 cm ? </html>",
-                new String[] {"326,0",
-                    String.format("%.1f", l.getVolume()),
-                    "397,4", "418,0"},
-                1)
-        );
-        
-        // === SOAL 5 ===
-        sa.setPanjang(10);
-        sa.setLebar(12.5);
-        st.setPanjang(12.5);
-        st.setLebar(5);
-        sd.setPanjang(10);
-        sd.setLebar(5);
-        daftarSoal.tambah(new SoalQuiz(
-                "<html> Berapa luas permukaan balok dengan panjang 10 cm, <br> "
-                        + "lebar 12,5 cm, dan tinggi 5 cm ? </html>",
-                new String[] {String.format("%.1f", b.getLuasPermukaan()),
-                    "525,0", "575,0", "625,0"},
-                0)
-        );
+    // ===== TAMPIL SOAL dari controller =====
+    public void tampilSoal() {
+        SoalQuiz soal = controller.getSoalSekarang();
+        lblNomorSoal.setText("Soal " + controller.getNomorSoal() + " / " + controller.getTotalSoal());
+        lblPertanyaan.setText("<html>" + soal.getPertanyaan() + "</html>");
+        rbA.setText(soal.getOpsiA());
+        rbB.setText(soal.getOpsiB());
+        rbC.setText(soal.getOpsiC());
+        rbD.setText(soal.getOpsiD());
+        groupJawaban.clearSelection();
+        btnNext.setEnabled(true);
     }
     
-    void tampilkanSoal(){
-        SoalQuiz s = daftarSoal.get(current);
-
-        jLabel1.setText(s.getPertanyaan());
-        jRadioButton1.setText(s.getOpsi()[0]);
-        jRadioButton2.setText(s.getOpsi()[1]);
-        jRadioButton3.setText(s.getOpsi()[2]);
-        jRadioButton4.setText(s.getOpsi()[3]);
-        
-        bg.clearSelection();
-    }
-    
-    boolean cekJawaban(){
-        SoalQuiz s = daftarSoal.get(current);
-        if (s.getJawabanBenar() == 0 && jRadioButton1.isSelected()) {
-            return true;
-        }
-        if (s.getJawabanBenar() == 1 && jRadioButton2.isSelected()) {
-            return true;
-        }
-        if (s.getJawabanBenar() == 2 && jRadioButton3.isSelected()) {
-            return true;
-        }
-        if (s.getJawabanBenar() == 3 && jRadioButton4.isSelected()) {
-            return true;
-        }
-        
-        return false;
-    }
-
-    // GUI
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        groupJawaban = new javax.swing.ButtonGroup();
+        btnNext = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jRadioButton4 = new javax.swing.JRadioButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton1 = new javax.swing.JRadioButton();
+        lblPertanyaan = new javax.swing.JLabel();
+        rbD = new javax.swing.JRadioButton();
+        rbC = new javax.swing.JRadioButton();
+        rbB = new javax.swing.JRadioButton();
+        rbA = new javax.swing.JRadioButton();
+        lblNomorSoal = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(720, 540));
         setMinimumSize(new java.awt.Dimension(720, 540));
-        setPreferredSize(new java.awt.Dimension(720, 540));
         setResizable(false);
 
-        jButton1.setFont(new java.awt.Font("Consolas", 0, 14)); // NOI18N
-        jButton1.setText("Next");
-        jButton1.setMaximumSize(new java.awt.Dimension(200, 35));
-        jButton1.setMinimumSize(new java.awt.Dimension(200, 35));
-        jButton1.setPreferredSize(new java.awt.Dimension(200, 35));
-        jButton1.addActionListener(this::jButton1ActionPerformed);
-
-        jButton2.setFont(new java.awt.Font("Consolas", 0, 14)); // NOI18N
-        jButton2.setText("Result");
-        jButton2.setEnabled(false);
-        jButton2.setMaximumSize(new java.awt.Dimension(200, 35));
-        jButton2.setMinimumSize(new java.awt.Dimension(200, 35));
-        jButton2.setPreferredSize(new java.awt.Dimension(200, 35));
-        jButton2.addActionListener(this::jButton2ActionPerformed);
+        btnNext.setFont(new java.awt.Font("Consolas", 0, 14)); // NOI18N
+        btnNext.setText("Next");
+        btnNext.setMaximumSize(new java.awt.Dimension(200, 35));
+        btnNext.setMinimumSize(new java.awt.Dimension(200, 35));
+        btnNext.setPreferredSize(new java.awt.Dimension(200, 35));
+        btnNext.addActionListener(this::btnNextActionPerformed);
 
         jPanel1.setBackground(new java.awt.Color(0, 153, 204));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
@@ -186,7 +80,7 @@ public class Quiz extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(jButton3)
-                .addGap(203, 203, 203)
+                .addGap(220, 220, 220)
                 .addComponent(jLabel2)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -203,27 +97,25 @@ public class Quiz extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(248, 248, 248));
         jPanel2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 2, true));
 
-        jLabel1.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
-        jLabel1.setText("Soal");
-        jLabel1.setMaximumSize(null);
-        jLabel1.setMinimumSize(null);
-        jLabel1.setPreferredSize(null);
+        lblPertanyaan.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
+        lblPertanyaan.setText("Soal");
 
-        jRadioButton4.setFont(new java.awt.Font("Consolas", 0, 14)); // NOI18N
-        jRadioButton4.setText("Opsi 4");
-        jRadioButton4.setMaximumSize(null);
+        rbD.setFont(new java.awt.Font("Consolas", 0, 14)); // NOI18N
+        rbD.setText("Opsi 4");
+        rbD.setMaximumSize(null);
 
-        jRadioButton3.setFont(new java.awt.Font("Consolas", 0, 14)); // NOI18N
-        jRadioButton3.setText("Opsi 3");
-        jRadioButton3.setMaximumSize(null);
+        rbC.setFont(new java.awt.Font("Consolas", 0, 14)); // NOI18N
+        rbC.setText("Opsi 3");
+        rbC.setMaximumSize(null);
 
-        jRadioButton2.setFont(new java.awt.Font("Consolas", 0, 14)); // NOI18N
-        jRadioButton2.setText("Opsi 2");
-        jRadioButton2.setMaximumSize(null);
+        rbB.setFont(new java.awt.Font("Consolas", 0, 14)); // NOI18N
+        rbB.setText("Opsi 2");
+        rbB.setMaximumSize(null);
 
-        jRadioButton1.setFont(new java.awt.Font("Consolas", 0, 14)); // NOI18N
-        jRadioButton1.setText("Opsi 1");
-        jRadioButton1.setMaximumSize(null);
+        rbA.setFont(new java.awt.Font("Consolas", 0, 14)); // NOI18N
+        rbA.setText("Opsi 1");
+        rbA.setMaximumSize(null);
+        rbA.addActionListener(this::rbAActionPerformed);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -231,80 +123,98 @@ public class Quiz extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE)
-                    .addComponent(jRadioButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jRadioButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jRadioButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jRadioButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(235, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblPertanyaan, javax.swing.GroupLayout.PREFERRED_SIZE, 538, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rbA, javax.swing.GroupLayout.DEFAULT_SIZE, 595, Short.MAX_VALUE)
+                    .addComponent(rbB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(rbC, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(rbD, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
-                .addComponent(jRadioButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblPertanyaan, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(rbA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jRadioButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(rbB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jRadioButton3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(rbC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jRadioButton4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(rbD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40))
         );
+
+        lblNomorSoal.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
+        lblNomorSoal.setText("Soal 1 / 3");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(305, 305, 305)
+                .addComponent(lblNomorSoal, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(31, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnNext, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(103, 103, 103))
+                .addGap(51, 51, 51))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
+                .addGap(18, 18, 18)
+                .addComponent(lblNomorSoal)
+                .addGap(7, 7, 7)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(71, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(btnNext, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(76, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        if (cekJawaban()){
-            score++;
+    private void btnNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextActionPerformed
+         // ===== ambil pilihan user =====
+        String jawabanUser = "";
+        if (rbA.isSelected()) jawabanUser = "a";
+        else if (rbB.isSelected()) jawabanUser = "b";
+        else if (rbC.isSelected()) jawabanUser = "c";
+        else if (rbD.isSelected()) jawabanUser = "d";
+ 
+        if (jawabanUser.isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Pilih jawaban dulu!");
+            return;
         }
-        current++;
-        if (current == daftarSoal.size() - 1) {
-            jButton1.setText("Submit");
-        }
-        if (current < daftarSoal.size()) {
-            tampilkanSoal();
+ 
+        // ===== serahkan ke controller =====
+        controller.submitJawaban(jawabanUser);
+ 
+        if (controller.hasNext()) {
+            tampilSoal();
         } else {
-            jButton1.setEnabled(false);
-            jButton2.setEnabled(true);
-            javax.swing.JOptionPane.showMessageDialog(this, "Score : " + score);
-//            System.exit(0);
-
+            // ===== quiz selesai =====
+            controller.simpanHasil();
+            lblNomorSoal.setText("Quiz Selesai!");
+            lblPertanyaan.setText("<html><b>Skor kamu: " + controller.getSkor()
+                                    + " / " + controller.getTotalSoal() + "</b>"
+                                    + "<br>Waktu: " + controller.getWaktuDetik() + " detik</html>");
+            rbA.setVisible(false);
+            rbB.setVisible(false);
+            rbC.setVisible(false);
+            rbD.setVisible(false);
+            btnNext.setEnabled(false);
+            javax.swing.JOptionPane.showMessageDialog(this, "Hasil berhasil disimpan!");
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnNextActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         MainMenu menu = new MainMenu();
@@ -313,21 +223,22 @@ public class Quiz extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        javax.swing.JOptionPane.showMessageDialog(this, "Score : " + score);    
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void rbAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbAActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rbAActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnNext;
+    private javax.swing.ButtonGroup groupJawaban;
     private javax.swing.JButton jButton3;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
-    private javax.swing.JRadioButton jRadioButton4;
+    private javax.swing.JLabel lblNomorSoal;
+    private javax.swing.JLabel lblPertanyaan;
+    private javax.swing.JRadioButton rbA;
+    private javax.swing.JRadioButton rbB;
+    private javax.swing.JRadioButton rbC;
+    private javax.swing.JRadioButton rbD;
     // End of variables declaration//GEN-END:variables
 }

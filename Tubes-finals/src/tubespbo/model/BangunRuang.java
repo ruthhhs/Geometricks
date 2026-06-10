@@ -6,7 +6,7 @@ public abstract class BangunRuang {
     private int jumlahRusuk;
     private static int counterBangunRuang;
 
-    // ====== METHOD KONSTRUKTOR ======
+    // ====== KONSTRUKTOR ======
     public BangunRuang() {
         this(0, 0);
     }
@@ -17,7 +17,7 @@ public abstract class BangunRuang {
         counterBangunRuang ++;
     }
 
-    // ====== METHOD SELEKTOR ======
+    // ====== SELEKTOR ======
     public int getJumlahSisi() {
         return jumlahSisi;
     }
@@ -26,13 +26,11 @@ public abstract class BangunRuang {
         return jumlahRusuk;
     }
 
-    
-
     static public int getCounterBangunRuang() {
         return counterBangunRuang;
     }
 
-    // ====== METHOD MUTATOR  ======
+    // ====== MUTATOR  ======
     public void setJumlahSisi (int jumlahSisi) {
         this.jumlahSisi = jumlahSisi;
     }
@@ -40,8 +38,7 @@ public abstract class BangunRuang {
     public void setJumlahRusuk (int jumlahRusuk) {
         this.jumlahRusuk = jumlahRusuk;
     }
-
-
+    
     // ====== METHOD LAINNYA ======
     abstract public double getLuasPermukaan();
     abstract public double getVolume();

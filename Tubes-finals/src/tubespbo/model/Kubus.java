@@ -4,7 +4,7 @@ public class Kubus extends BangunRuang {
     // ====== ATRIBUT ======
     private BujurSangkar sisi;
 
-    // ====== METHOD KONSTRUKTOR ======
+    // ====== KONSTRUKTOR ======
     public Kubus(){
         setJumlahSisi(6);
         setJumlahRusuk(12);
@@ -16,12 +16,12 @@ public class Kubus extends BangunRuang {
         this.sisi = sisi;
     }
 
-    // ====== METHOD SELEKTOR ======
+    // ====== SELEKTOR ======
     public BujurSangkar getSisi(){
         return sisi;
     }
 
-    // ====== METHOD MUTATOR  ======
+    // ====== MUTATOR  ======
     public void setSisi(BujurSangkar sisi){
         this.sisi = sisi;
     }

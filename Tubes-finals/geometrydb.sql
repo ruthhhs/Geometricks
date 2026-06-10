@@ -86,9 +86,18 @@ INSERT INTO account (username, password) VALUES
 ('gabriel', 'matgeo2026');
 
 INSERT INTO soal_quiz (pertanyaan, opsi_a, opsi_b, opsi_c, opsi_d, jawaban) VALUES
-('5 + 5 = ?', '10', '20', '30', '40', 'a'),
-('2 + 2 = ?', '1', '2', '3', '4', 'd'),
-('Apa rumus dari keliling persegi?', '3 * L', '4 * L', '4 * S', '4 * S * S', 'c');
+-- BANGUN DATAR
+('Rumus luas persegi panjang adalah...', 'p + l', '2 * (p + l)', 'p * l', 'p * p', 'c'),
+('Rumus keliling segitiga siku-siku dengan alas 3 dan tinggi 4 adalah...', '7', '10', '12', '14', 'c'),
+('Rumus luas segitiga adalah...', 'a * t', '2 * a * t', '1/2 * a * t', '1/3 * a * t', 'c'),
+('Diagonal bujur sangkar dengan sisi s adalah...', 's * s', 's * 2', 's * sqrt(2)', 's * sqrt(3)', 'c'),
+('Keliling persegi panjang dengan panjang 8 dan lebar 5 adalah...', '13', '26', '40', '20', 'b'),
+-- BANGUN RUANG
+('Rumus volume kubus dengan sisi s adalah...', 's * s', '6 * s * s', 's * s * s', '4 * s * s', 'c'),
+('Rumus luas permukaan balok adalah...', 'p * l * t', '2 * (pl + pt + lt)', 'p + l + t', '4 * (p + l + t)', 'b'),
+('Volume limas persegi dengan alas s dan tinggi t adalah...', 's * s * t', '1/2 * s * s * t', '1/3 * s * s * t', '2 * s * s * t', 'c'),
+('Diagonal ruang kubus dengan sisi 4 adalah...', '4 * sqrt(2)', '4 * sqrt(3)', '4 * 2', '4 * 3', 'b'),
+('Jumlah rusuk pada balok adalah...', '8', '10', '12', '6', 'c');
 
 INSERT INTO hasil_quiz (id_account, nilai, waktu) VALUES
 (1, 85.50, 320),

@@ -10,6 +10,7 @@ import tubespbo.service.MysqlSoalQuizService;
 public class QuizController {
     // ===== ATRIBUT ======
     private Koleksi<SoalQuiz> daftarSoal = new Koleksi<>();
+    private long waktuMulai;
     private int indexSoal = 0;
     private int skor = 0;
 
@@ -19,6 +20,7 @@ public class QuizController {
         daftarSoal = service.getAllSoal();
         indexSoal = 0;
         skor = 0;
+        waktuMulai = System.currentTimeMillis();
     }
 
     // ===== GET soal sekarang =====
@@ -55,10 +57,16 @@ public class QuizController {
         return skor;
     }
 
+    // ===== GET selisih waktu =====
+    public int getWaktuDetik() {
+        long waktuSelesai = System.currentTimeMillis();
+        return (int) ((waktuSelesai - waktuMulai) / 1000);
+    }
+    
     // ===== SIMPAN hasil ke DB =====
     public void simpanHasil() {
         MysqlHasilQuizService service = new MysqlHasilQuizService();
-        HasilQuiz hasil = new HasilQuiz(Session.idAccount, skor, 120);
+        HasilQuiz hasil = new HasilQuiz(Session.idAccount, skor, getWaktuDetik());
         service.add(hasil);
     }
 

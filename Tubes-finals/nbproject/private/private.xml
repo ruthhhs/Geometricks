@@ -12,9 +12,14 @@
             <file>file:/C:/000/code_univ/semester_4/PBO-tugas-kelompok/Tubes-finals/src/tubespbo/service/MysqlHasilQuizService.java</file>
             <file>file:/C:/000/code_univ/semester_4/PBO-tugas-kelompok/Tubes-finals/src/tubespbo/main/main.java</file>
             <file>file:/C:/000/code_univ/semester_4/PBO-tugas-kelompok/Tubes-finals/src/tubespbo/controller/KalkulatorBangunController.java</file>
-            <file>file:/C:/000/code_univ/semester_4/PBO-tugas-kelompok/Tubes-finals/src/tubespbo/main/Program.java</file>
             <file>file:/C:/000/code_univ/semester_4/PBO-tugas-kelompok/Tubes-finals/src/tubespbo/view/MainMenu.java</file>
             <file>file:/C:/000/code_univ/semester_4/PBO-tugas-kelompok/Tubes-finals/src/tubespbo/view/LogIn.java</file>
+            <file>file:/C:/000/code_univ/semester_4/PBO-tugas-kelompok/Tubes-finals/src/tubespbo/view/ForgetPassword.java</file>
+            <file>file:/C:/000/code_univ/semester_4/PBO-tugas-kelompok/Tubes-finals/src/tubespbo/view/KalkulatorBangun.java</file>
+            <file>file:/C:/000/code_univ/semester_4/PBO-tugas-kelompok/Tubes-finals/src/tubespbo/view/Quiz.java</file>
+            <file>file:/C:/000/code_univ/semester_4/PBO-tugas-kelompok/Tubes-finals/src/tubespbo/model/HasilQuiz.java</file>
+            <file>file:/C:/000/code_univ/semester_4/PBO-tugas-kelompok/Tubes-finals/src/tubespbo/model/Account.java</file>
+            <file>file:/C:/000/code_univ/semester_4/PBO-tugas-kelompok/Tubes-finals/src/tubespbo/model/Koleksi.java</file>
         </group>
     </open-files>
 </project-private>
